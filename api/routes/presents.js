@@ -3,11 +3,11 @@ const router = express.Router();
 const presentsController = require('../controllers/presents');
 const { checkToken } = require('../helpers/helpers');
 
-router.get('/', checkToken, presentsController.index);
+router.get('/', presentsController.index);
 
-router.get('/:id', checkToken, presentsController.show);
+router.get('/:id', presentsController.show);
 
-router.get('/user/:id', checkToken, presentsController.showByUser)
+router.get('/user/:id', presentsController.showByUser)
 
 router.post('/', checkToken, presentsController.create);
 
