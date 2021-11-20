@@ -7,7 +7,7 @@ router.get('/', presentsController.index);
 
 router.get('/:id', presentsController.show);
 
-router.get('/user/:id', presentsController.showByUser)
+router.get('/user/:id/:type', presentsController.showByUser)
 
 router.post('/', checkToken, presentsController.create);
 

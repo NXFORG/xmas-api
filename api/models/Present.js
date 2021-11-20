@@ -5,9 +5,11 @@ class Present {
         this.id = data.id;
         this.user_id = data.user_id;
         this.present_name = data.present_name;
+        this.present_description = data.present_description;
         this.present_price = data.present_price;
         this.present_link = data.present_link;
         this.present_priority = data.present_priority;
+        this.present_occasion = data.present_occasion;
     }
 
     static get all() {
@@ -38,10 +40,10 @@ class Present {
         });
     };
 
-    static findPresentByUserId(id) {
+    static findPresentByUserId(id, type) {
         return new Promise(async (resolve, reject) => {
             try {
-                let data = await db.query(`SELECT * FROM presents WHERE user_id=$1;`, [ id ]);
+                let data = await db.query(`SELECT * FROM presents WHERE user_id=$1 AND present_occasion=$2;`, [ id, type ]);
                 let presents = data.rows.map(p => new Present(p));
                 resolve(presents);
             }
@@ -57,10 +59,29 @@ class Present {
             try {
                 const presentUser = data.user_id;
                 const presentName = data.present_name;
+                const presentDesc = data.present_description;
                 const presentPrice = data.present_price;
                 const presentLink = data.present_link;
                 const presentPriority = data.present_priority;
-                let newPresentData = await db.query(`INSERT INTO presents (user_id, present_name, present_price, present_link, present_priority) VALUES ($1, $2, $3, $4, $5) RETURNING *;`, [ presentUser, presentName, presentPrice, presentLink, presentPriority ]);
+                const presentType = data.present_occasion;
+                let newPresentData = await db.query(`INSERT INTO presents (
+                    user_id, 
+                    present_name, 
+                    present_description, 
+                    present_price, 
+                    present_link, 
+                    present_priority,
+                    present_occasion
+                ) VALUES ($1, $2, $3, $4, $5) RETURNING *;`, 
+                [ 
+                    presentUser, 
+                    presentName,
+                    presentDesc, 
+                    presentPrice, 
+                    presentLink, 
+                    presentPriority,
+                    presentType 
+                ]);
                 let newPresent = new Present({...newPresentData.rows[0]});
                 resolve(newPresent);
             }

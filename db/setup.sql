@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS presents (
     id serial PRIMARY KEY,
     user_id int NOT NULL,
     present_name varchar NOT NULL,
+    present_description varchar,
     present_price varchar(10) NOT NULL,
     present_link varchar,
-    present_priority varchar(10)
+    present_priority varchar(10),
+    present_occasion varchar(10)
 );

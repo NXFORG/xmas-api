@@ -24,7 +24,7 @@ async function show(req, res) {
 
 async function showByUser(req, res) {
     try {
-        const presents = await Present.findPresentByUserId(parseInt(req.params.id));
+        const presents = await Present.findPresentByUserId(parseInt(req.params.id), req.params.type);
         res.json(presents);
     }
     catch(err) {

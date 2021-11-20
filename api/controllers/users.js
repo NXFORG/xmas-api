@@ -5,6 +5,15 @@ const dotenv = require('dotenv').config();
 
 const User = require('../models/User');
 
+async function getUser (req, res) {
+    try {
+        const user = await User.findUserId(req.params.username);
+        res.status(200).json(user);
+    } catch(err) {
+        console.log(err);
+    }
+}
+
 async function register (req, res) {
     try {
         let salt = await bcrypt.genSalt(10);
@@ -42,4 +51,4 @@ async function login (req, res) {
     }
 };
 
-module.exports = { register, login }
+module.exports = { getUser, register, login }
