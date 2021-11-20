@@ -16,6 +16,7 @@ async function getUser (req, res) {
 
 async function register (req, res) {
     try {
+        console.log(req.body)
         let salt = await bcrypt.genSalt(10);
         let hash = await bcrypt.hash(req.body.password, salt);
         await User.create({...req.body, password: hash})
@@ -40,7 +41,7 @@ async function login (req, res) {
             } 
             const secret = process.env.TOKEN_SECRET;
 
-            const payload = { username: user.username, id:user.id}
+            const payload = { username: user.username }
 
             jwt.sign(payload, secret, { expiresIn: '2h' }, sendToken);
         } else {

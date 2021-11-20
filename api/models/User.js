@@ -8,6 +8,7 @@ class User {
     }
 
     static create({ username, password }){
+        console.log(username, password)
         return new Promise(async (res, rej) => {
             try {
                 let result = await db.query(`INSERT INTO users (username, password)
