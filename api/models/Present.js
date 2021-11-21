@@ -72,7 +72,7 @@ class Present {
                     present_link, 
                     present_priority,
                     present_occasion
-                ) VALUES ($1, $2, $3, $4, $5) RETURNING *;`, 
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`, 
                 [ 
                     presentUser, 
                     presentName,
