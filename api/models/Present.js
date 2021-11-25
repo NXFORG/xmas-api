@@ -43,7 +43,12 @@ class Present {
     static findPresentByUserId(id, type) {
         return new Promise(async (resolve, reject) => {
             try {
-                let data = await db.query(`SELECT * FROM presents WHERE user_id=$1 AND present_occasion=$2;`, [ id, type ]);
+                let data;
+                if(type !== 'all'){
+                    data = await db.query(`SELECT * FROM presents WHERE user_id=$1 AND present_occasion=$2;`, [ id, type ]);
+                } else {
+                    data = await db.query(`SELECT * FROM presents WHERE user_id=$1`, [ id ]);
+                }
                 let presents = data.rows.map(p => new Present(p));
                 resolve(presents);
             }
