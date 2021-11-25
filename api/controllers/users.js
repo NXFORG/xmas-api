@@ -39,7 +39,7 @@ async function login (req, res) {
                     token: 'Bearer ' + token
                 })
             } 
-            const secret = 'verysecure';
+            const secret = process.env.SECRET;
 
             const payload = { username: user.username }
 
