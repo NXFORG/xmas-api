@@ -4,7 +4,7 @@ function checkToken(req, res, next){
 	const header = req.headers['authorization'];
 	if(header){
 		const token = header.split(' ')[1];
-		const secret = process.env.TOKEN_SECRET;
+		const secret = process.env.SECRET;
 		jwt.verify(token, secret, async(err, data) => {
 			console.log(`data: ${data}`);
 			if(err){
